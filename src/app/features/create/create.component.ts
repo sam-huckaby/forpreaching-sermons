@@ -13,16 +13,19 @@ import { share } from 'rxjs/operators';
 })
 export class CreateComponent implements OnInit {
   // The form itself
-  @ViewChild('createIllustrationForm') createForm;
+  @ViewChild('createSermonForm') createForm;
 
   // Observables
   submit$: any;
 
   // Form element model
-  illustrationForm = new FormGroup({
+  sermonForm = new FormGroup({
     title: new FormControl('', [
       Validators.required,
       Validators.maxLength(100),
+    ]),
+    scripture: new FormControl('', [
+      Validators.required,
     ]),
     body: new FormControl('', [
       Validators.required,
@@ -36,12 +39,12 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // Attempt to create a new illustration (share: https://blog.novanet.no/angular-pitfall-multiple-http-requests-with-rxjs-and-observable-async/)
-    this.submit$ = this.http.post('/api/illustrations', this.illustrationForm.value, {responseType: 'json'}).pipe(share());
+    // Attempt to create a new sermon (share: https://blog.novanet.no/angular-pitfall-multiple-http-requests-with-rxjs-and-observable-async/)
+    this.submit$ = this.http.post('/api/sermons', this.sermonForm.value, {responseType: 'json'}).pipe(share());
     this.submit$.subscribe((result) => {
       this.createForm.resetForm();
       // Navigate the user to the detail screen
-      this.router.navigate(['/illustration/', result.id]);
+      this.router.navigate(['/sermon/', result.id]);
     });
   }
 }

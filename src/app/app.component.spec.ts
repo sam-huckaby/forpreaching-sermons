@@ -31,10 +31,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Illustrations For Preaching'`, () => {
+  it(`should have as title 'Sermons For Preaching'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Illustrations For Preaching');
+    expect(app.title).toEqual('Sermons For Preaching');
   });
 
   it('should render the sign in navigation item', () => {

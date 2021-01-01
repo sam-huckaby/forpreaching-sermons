@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
-import { Illustration } from '../../core/interfaces/illustration.interface';
+import { Sermon } from '../../core/interfaces/sermon.interface';
 
 @Component({
   selector: 'app-library',
@@ -16,7 +16,7 @@ import { Illustration } from '../../core/interfaces/illustration.interface';
 export class LibraryComponent implements OnInit {
 
   // Observables
-  yourIllustrations$: BehaviorSubject<Illustration[]> = new BehaviorSubject([]);
+  yourSermons$: BehaviorSubject<Sermon[]> = new BehaviorSubject([]);
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
@@ -26,11 +26,11 @@ export class LibraryComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    // Retrieve all illustrations created by the current user
+    // Retrieve all sermons created by the current user
     this.isLoading$.next(true);
-    this.http.get<Illustration[]>('/api/illustrations/library', {responseType: 'json'})
-      .subscribe((illustrations) => {
-        this.yourIllustrations$.next(illustrations);
+    this.http.get<Sermon[]>('/api/sermons/library', {responseType: 'json'})
+      .subscribe((sermons) => {
+        this.yourSermons$.next(sermons);
       }, (caught) => {
         this._snackBar.open(caught.error.info, "Got it", {
           duration: 5000,

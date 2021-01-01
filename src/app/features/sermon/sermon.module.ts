@@ -14,19 +14,19 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // TinyMCE
 import { EditorModule } from '@tinymce/tinymce-angular';
 
-import { IllustrationRoutingModule } from './illustration-routing.module';
-import { IllustrationComponent, ConfirmDeleteDialog } from './illustration.component';
+import { SermonRoutingModule } from './sermon-routing.module';
+import { SermonComponent, ConfirmDeleteDialog } from './sermon.component';
 
 @NgModule({
   declarations: [
-    IllustrationComponent,
+    SermonComponent,
     ConfirmDeleteDialog
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IllustrationRoutingModule,
+    SermonRoutingModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -39,4 +39,4 @@ import { IllustrationComponent, ConfirmDeleteDialog } from './illustration.compo
     ConfirmDeleteDialog
   ],
 })
-export class IllustrationModule { }
+export class SermonModule { }

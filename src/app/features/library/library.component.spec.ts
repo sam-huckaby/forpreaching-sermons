@@ -39,11 +39,11 @@ describe('LibraryComponent', () => {
     input.value = 'The Red Potter';
     input.dispatchEvent(event);
     
-    expect(fixture.componentInstance.illustrationTitleControl.value).toEqual('The Red Potter');
+    expect(fixture.componentInstance.sermonTitleControl.value).toEqual('The Red Potter');
   });
 
   it('should update the value in the title control', () => {
-    component.illustrationTitleControl.setValue('The Blue Potter');
+    component.sermonTitleControl.setValue('The Blue Potter');
   
     const input = fixture.nativeElement.querySelector('#title_create_input');
   

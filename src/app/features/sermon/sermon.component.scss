@@ -6,7 +6,7 @@
     height: calc(100% - 20px);
 }
 
-.loaded-illustration {
+.loaded-sermon {
     @include flex-col;
 
     // Take up the entire page
@@ -21,7 +21,7 @@
     flex: 1 1 100%;
 }
 
-.illustration-form {
+.sermon-form {
     @include flex-col;
 
     // Take up the entire page
@@ -46,7 +46,7 @@
     margin: 0 10px;
 }
 
-#body_illustration_input {
+#body_sermon_input {
     flex: 1 1 100%;
 }
 
@@ -106,7 +106,7 @@
     padding-bottom: 20px;
 }
 
-.illustration-content {
+.sermon-content {
     height: 400px;
 }
 

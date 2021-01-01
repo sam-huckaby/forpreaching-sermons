@@ -7,17 +7,17 @@ import { BehaviorSubject } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 
-import { Illustration } from '../../../core/interfaces/illustration.interface';
+import { Sermon } from '../../../core/interfaces/sermon.interface';
 
 @Component({
-  selector: 'illustration-collection',
+  selector: 'sermon-collection',
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.scss']
 })
 export class CollectionComponent implements OnInit {
 
   @Input() caption: string;
-  @Input() entries: Illustration[];
+  @Input() entries: Sermon[];
 
   constructor() { }
 

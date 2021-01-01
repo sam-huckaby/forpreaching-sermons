@@ -2,21 +2,21 @@
     <div class="fullscreen-loading-veil" *ngIf="isLoading$ | async">
         Loading...
     </div>
-    <div class="loaded-illustration" *ngIf="illustration$ | async as illustration">
-        <!-- If the illustration has been loaded already, we want it to remain visible under the loading veil -->
-        <div *ngIf="illustration._id">
-            <div class="owner-view" *ngIf="illustration.creator === userId; else visitor">
-                <form class="illustration-form" [formGroup]="illustrationForm" #editIllustrationForm="ngForm">
+    <div class="loaded-sermon" *ngIf="sermon$ | async as sermon">
+        <!-- If the sermon has been loaded already, we want it to remain visible under the loading veil -->
+        <div *ngIf="sermon._id">
+            <div class="owner-view" *ngIf="sermon.creator === userId; else visitor">
+                <form class="sermon-form" [formGroup]="sermonForm" #editSermonForm="ngForm">
                     <div class="space-between" id="top_metadata">
-                        <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
-                        <span class="field-label">Last Updated: {{illustration.updatedAt | date:'longDate'}}</span>
+                        <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
+                        <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
                     </div>
                     <div id="title_field">
                         <mat-form-field appearance="outline" class="flex-full">
-                            <mat-label for="title_illustration_input">Title</mat-label>
+                            <mat-label for="title_sermon_input">Title</mat-label>
                             <input matInput
                                 placeholder="Ex. The Angry Potter"
-                                id="title_illustration_input"
+                                id="title_sermon_input"
                                 class="responsive-width"
                                 formControlName="title" required>
                         </mat-form-field>
@@ -45,22 +45,22 @@
                         </editor>
                     </div>
                     <div class="bottom-controls">
-                        <button class="control-button" id="delete_button" [disabled]="!illustrationForm.valid" (click)="deleteIllustration()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
+                        <button class="control-button" id="delete_button" [disabled]="!sermonForm.valid" (click)="deleteSermon()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
                         <divl class="spacer"></divl>
-                        <button class="control-button" id="reset_button" [disabled]="!illustrationForm.dirty" (click)="resetChanges()" mat-raised-button>Reset</button>
-                        <button class="control-button" id="save_button" [disabled]="!illustrationForm.valid || !illustrationForm.dirty" (click)="saveChanges()" mat-raised-button color="primary">Save</button>
+                        <button class="control-button" id="reset_button" [disabled]="!sermonForm.dirty" (click)="resetChanges()" mat-raised-button>Reset</button>
+                        <button class="control-button" id="save_button" [disabled]="!sermonForm.valid || !sermonForm.dirty" (click)="saveChanges()" mat-raised-button color="primary">Save</button>
                     </div>
                 </form>
             </div>
             <ng-template #visitor>
                 <div class="visitor-view">
                     <div class="responsive-breakdown space-between pad-bottom" id="top-metadata">
-                        <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
-                        <span class="field-label">Last Updated: {{illustration.updatedAt | date:'longDate'}}</span>
+                        <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
+                        <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
                     </div>
-                    <div class="header-text">{{illustration.title}}</div>
+                    <div class="header-text">{{sermon.title}}</div>
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
-                    <form [formGroup]="illustrationForm" #editIllustrationForm="ngForm">
+                    <form [formGroup]="sermonForm" #editSermonForm="ngForm">
                         <editor
                             apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
                             formControlName="body"

@@ -6,7 +6,7 @@ import { share } from 'rxjs/operators';
 
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-import { Illustration } from '../../core/interfaces/illustration.interface';
+import { Sermon } from '../../core/interfaces/sermon.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
 
   // FormGroup
   dashboardFormGroup: FormGroup;
-  search$: Observable<Illustration[] | ArrayBuffer>;
+  search$: Observable<Sermon[] | ArrayBuffer>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,8 +30,8 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   search(): void {
-    // Look for illustrations using provided criteria
-    this.search$ = this.http.get<Illustration[]>('/api/illustrations', {responseType: 'json', params: this.dashboardForm.value}).pipe(share());
+    // Look for sermons using provided criteria
+    this.search$ = this.http.get<Sermon[]>('/api/sermons', {responseType: 'json', params: this.dashboardForm.value}).pipe(share());
   }
 
   ngOnInit(): void {

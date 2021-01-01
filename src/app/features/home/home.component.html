@@ -1,20 +1,20 @@
 <div class="padded-page-container">
     <div id="top-container">
-        <h2 class="underlined-header">The 10 most recent illustrations</h2>
+        <h2 class="underlined-header">The 10 most recent sermons</h2>
     </div>
     <div id="snippet-container">
-        <div class="illustration-snippet" *ngFor="let illustration of lastTenIllustrations">
+        <div class="sermon-snippet" *ngFor="let sermon of lastTenSermons">
             <div class="created-date children-center">
-                <div class="month-abbr">{{illustration.createdAt | date:'MMM'}}</div>
-                <div class="day-number">{{illustration.createdAt | date:'dd'}}</div>
+                <div class="month-abbr">{{sermon.createdAt | date:'MMM'}}</div>
+                <div class="day-number">{{sermon.createdAt | date:'dd'}}</div>
             </div>
             <div class="text-preview">
-                <div class="title-pane">{{illustration.title}}</div>
+                <div class="title-pane">{{sermon.title}}</div>
                 <div class="body-pane">
-                    {{illustration.body}}
+                    {{sermon.body}}
                 </div>
                 <div class="readmore-pane">
-                    <span class="read-more" [routerLink]="['/illustration', illustration._id]">Read More</span>
+                    <span class="read-more" [routerLink]="['/sermon', sermon._id]">Read More</span>
                 </div>
             </div>
         </div>

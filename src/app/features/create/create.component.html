@@ -1,8 +1,8 @@
 <div class="padded-page-container">
     <div class="table-row children-center">
-        <h1>Create a new illustration</h1>
+        <h1>Create a new Sermon</h1>
     </div>
-    <form id="create_form" [formGroup]="illustrationForm" (ngSubmit)="onSubmit()" #createIllustrationForm="ngForm">
+    <form id="create_form" [formGroup]="sermonForm" (ngSubmit)="onSubmit()" #createSermonForm="ngForm">
         <div class="children-center" id="title_field_holder">
             <mat-form-field id="title_field">
                 <mat-label>Title</mat-label>
@@ -13,9 +13,19 @@
                     formControlName="title" required>
             </mat-form-field>
         </div>
+        <div class="children-center" id="scripture_field_holder">
+            <mat-form-field id="scripture_field">
+                <mat-label>Scripture</mat-label>
+                <input matInput
+                    placeholder="Ex. Romans 15:1-7"
+                    id="scripture_create_input"
+                    class="responsive-width"
+                    formControlName="scripture" required>
+            </mat-form-field>
+        </div>
         <div class="last-input-container flex-full children-center separate-bottom">
             <editor
-                initialValue="<p>There once was an illustration...</p>"
+                initialValue="<p>There once was a sermon...</p>"
                 apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
                 formControlName="body"
                 [init]="{
@@ -37,11 +47,11 @@
             </editor>
         </div>
         <div class="table-row children-center">
-            <button type="submit" [disabled]="!illustrationForm.valid" mat-raised-button color="primary">Create</button>
+            <button type="submit" [disabled]="!sermonForm.valid" mat-raised-button color="primary">Create</button>
         </div>
     </form>
     <div class="success-message children-center" *ngIf="submit$ | async as result; else indicator">
-        <span *ngIf="result !== true">Illustration created!</span>
+        <span *ngIf="result !== true">Sermon created!</span>
     </div>
     <ng-template #indicator>
         <div class="fullscreen-loading-veil">Loading...</div>

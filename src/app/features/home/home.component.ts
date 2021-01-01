@@ -8,14 +8,14 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  lastTenIllustrations:any = [];
+  lastTenSermons:any = [];
 
   constructor(private http: HttpClient) { }
 
   async ngOnInit() {
-    // Request the 10 most recent illustrations (for users without an account);
-    this.http.get('/unsecured/topten').subscribe(result => {
-      this.lastTenIllustrations = result;
+    // Request the 10 most recent sermons (for users without an account);
+    this.http.get('/unsecured/topten/sermons').subscribe(result => {
+      this.lastTenSermons = result;
     });
   }
 

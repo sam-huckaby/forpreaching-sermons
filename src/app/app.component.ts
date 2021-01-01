@@ -12,7 +12,7 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Illustrations For Preaching';
+  title = 'Sermons For Preaching';
   faSignInAlt = faSignInAlt;
   faBars = faBars;
   menuOpen: boolean = false;

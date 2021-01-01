@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // Feature Modules
-import { IllustrationComponent } from './illustration.component';
+import { SermonComponent } from './sermon.component';
 // Authentication Module
 import { AuthGuard } from '@auth0/auth0-angular';
 
@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: ':id',
-        component: IllustrationComponent,
+        component: SermonComponent,
         pathMatch: 'full',
         canActivate: [AuthGuard]
       }
@@ -24,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class IllustrationRoutingModule { }
+export class SermonRoutingModule { }

@@ -12,26 +12,26 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$illustrations-primary: mat-palette($mat-indigo);
-$illustrations-accent: mat-palette($mat-pink, A200, A100, A400);
+$sermons-primary: mat-palette($mat-indigo);
+$sermons-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$illustrations-warn: mat-palette($mat-red);
+$sermons-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$illustrations-theme: mat-light-theme((
+$sermons-theme: mat-light-theme((
   color: (
-    primary: $illustrations-primary,
-    accent: $illustrations-accent,
-    warn: $illustrations-warn,
+    primary: $sermons-primary,
+    accent: $sermons-accent,
+    warn: $sermons-warn,
   )
 ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($illustrations-theme);
+@include angular-material-theme($sermons-theme);
 
 // The real purpose of this file is to include mixins.
 @import 'styles/forms.scss';

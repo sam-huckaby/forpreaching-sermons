@@ -32,7 +32,21 @@
     @include flex-col;
 }
 
+#scripture_field_holder {
+    @include flex-col;
+}
+
 #title_field {
+    @include flex-col;
+
+    width: calc(100% - 20px);
+
+    @include custom(520) {
+        width: 500px;
+    }
+}
+
+#scripture_field {
     @include flex-col;
 
     width: calc(100% - 20px);
@@ -46,7 +60,11 @@
     @include flex-col;
 }
 
-.illustration-content {
+#scripture_create_input {
+    @include flex-col;
+}
+
+.sermon-content {
     height: 200px;
 }
 

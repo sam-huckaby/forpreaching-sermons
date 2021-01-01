@@ -1,21 +1,21 @@
 <div class="padded-page-container">
-    <div class="help-text top-message">Use the search panel below to look for specific illustrations.</div>
+    <div class="help-text top-message">Use the search panel below to look for specific sermons.</div>
     <div class="search-panel-container">
         <form class="dashboard-form" [formGroup]="dashboardFormGroup" #dashboardForm="ngForm">
             <div class="responsive-breakdown spread-out">
                 <mat-form-field appearance="outline" class="flex-full pad-between">
-                    <mat-label for="title_illustration_input">Title</mat-label>
+                    <mat-label for="title_sermon_input">Title</mat-label>
                     <input matInput
                         placeholder="Ex. The Angry Potter"
-                        id="title_illustration_input"
+                        id="title_sermon_input"
                         class="responsive-width"
                         formControlName="title">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="flex-full pad-between">
-                    <mat-label for="body_illustration_input">Content</mat-label>
+                    <mat-label for="body_sermon_input">Content</mat-label>
                     <input matInput
                         placeholder="Ex. because the Law condemns"
-                        id="body_illustration_input"
+                        id="body_sermon_input"
                         class="responsive-width"
                         formControlName="body">
                 </mat-form-field>
@@ -29,7 +29,7 @@
         <div class="results-panel" *ngIf="search$ | async as searchResults else resultless">
             <div class="result-row" *ngFor="let result of searchResults">
                 <div class="top-bar responsive-breakdown">
-                    <div class="title" [routerLink]="['/illustration', result._id]">{{result.title}}</div>
+                    <div class="title" [routerLink]="['/sermon', result._id]">{{result.title}}</div>
                     <div class="updated">Last Updated: {{result.updatedAt | date:'longDate'}}</div>
                 </div>
                 <div class="bottom-bar">{{result.body}}</div>

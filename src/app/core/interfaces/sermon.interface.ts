@@ -1,5 +1,5 @@
-// The interface for the DB illustration model
-export interface Illustration {
+// The interface for the DB sermon model
+export interface Sermon {
     _id: string;
     title: string;
     body: string;

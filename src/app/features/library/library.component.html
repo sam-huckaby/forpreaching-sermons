@@ -7,9 +7,9 @@
     </div>
 
     <!-- Collection Components -->
-    <div *ngIf="yourIllustrations$ | async as illustrations" class="bookshelf">
+    <div *ngIf="yourSermons$ | async as sermons" class="bookshelf">
         <div class="slimline">
-            <illustration-collection [entries]="illustrations" [caption]="'My Illustrations'"></illustration-collection>
+            <sermon-collection [entries]="sermons" [caption]="'My Sermons'"></sermon-collection>
         </div>
     </div>
 
