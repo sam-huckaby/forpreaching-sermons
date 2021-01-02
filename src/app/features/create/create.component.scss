@@ -28,25 +28,15 @@
     @include flex-full;
 }
 
-#title_field_holder {
+#title_field_holder,
+#scripture_field_holder,
+#summary_field_holder {
     @include flex-col;
 }
 
-#scripture_field_holder {
-    @include flex-col;
-}
-
-#title_field {
-    @include flex-col;
-
-    width: calc(100% - 20px);
-
-    @include custom(520) {
-        width: 500px;
-    }
-}
-
-#scripture_field {
+#title_field,
+#scripture_field,
+#summary_field {
     @include flex-col;
 
     width: calc(100% - 20px);
@@ -56,11 +46,9 @@
     }
 }
 
-#title_create_input {
-    @include flex-col;
-}
-
-#scripture_create_input {
+#title_create_input,
+#scripture_create_input,
+#summary_create_input {
     @include flex-col;
 }
 

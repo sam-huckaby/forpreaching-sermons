@@ -34,10 +34,14 @@ export class DashboardComponent implements OnInit {
     this.search$ = this.http.get<Sermon[]>('/api/sermons', {responseType: 'json', params: this.dashboardForm.value}).pipe(share());
   }
 
+  calculateReadTime(sermonText): number {
+    return Math.ceil(((sermonText.split(' ')).length/125)*60) * 1000
+  }
+
   ngOnInit(): void {
     this.dashboardFormGroup = this.formBuilder.group({
       title: [''],
-      body: ['']
+      scripture: ['']
     });
   }
 }

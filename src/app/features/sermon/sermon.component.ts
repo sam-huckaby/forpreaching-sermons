@@ -107,6 +107,8 @@ export class SermonComponent implements OnInit {
   ngOnInit(): void {
     this.sermonForm = this.formBuilder.group({
       title: ['', Validators.required],
+      scripture: ['', Validators.required],
+      summary: [''],
       body: ['', Validators.required]
     });
 

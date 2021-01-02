@@ -27,6 +27,7 @@ export class CreateComponent implements OnInit {
     scripture: new FormControl('', [
       Validators.required,
     ]),
+    summary: new FormControl('', []),
     body: new FormControl('', [
       Validators.required,
     ]),

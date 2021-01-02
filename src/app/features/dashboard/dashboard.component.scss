@@ -61,7 +61,7 @@
 
 .result-row {
     @include flex-col;
-    height: 100px;
+    height: 80px;
     overflow: hidden;
     padding: 10px;
     border-bottom: 1px solid lightgray;
@@ -102,7 +102,7 @@
     }
 
     .bottom-bar {
-        display: flex;
+        @include flex-col;
         flex: 0 1 50%;
         overflow: hidden;
     }

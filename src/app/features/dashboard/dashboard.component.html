@@ -12,12 +12,12 @@
                         formControlName="title">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="flex-full pad-between">
-                    <mat-label for="body_sermon_input">Content</mat-label>
+                    <mat-label for="scripture_sermon_input">Scripture</mat-label>
                     <input matInput
-                        placeholder="Ex. because the Law condemns"
-                        id="body_sermon_input"
+                        placeholder="Ex. Romans 15:1-7"
+                        id="scripture_sermon_input"
                         class="responsive-width"
-                        formControlName="body">
+                        formControlName="scripture">
                 </mat-form-field>
             </div>
             <div class="responsive-breakdown flex-end">
@@ -32,7 +32,10 @@
                     <div class="title" [routerLink]="['/sermon', result._id]">{{result.title}}</div>
                     <div class="updated">Last Updated: {{result.updatedAt | date:'longDate'}}</div>
                 </div>
-                <div class="bottom-bar">{{result.body}}</div>
+                <div class="bottom-bar">
+                    <div class="scripture">{{result.scripture}}</div>
+                    <div class="read-time">Approx. Reading Time: {{calculateReadTime(result.body) | date:'m:ss'}}</div>
+                </div>
             </div>
         </div>
         <ng-template #resultless>

@@ -21,6 +21,26 @@
                                 formControlName="title" required>
                         </mat-form-field>
                     </div>
+                    <div id="scripture_field">
+                        <mat-form-field appearance="outline" class="flex-full">
+                            <mat-label for="scripture_sermon_input">Scripture</mat-label>
+                            <input matInput
+                                placeholder="Ex. The Angry Potter"
+                                id="scripture_sermon_input"
+                                class="responsive-width"
+                                formControlName="scripture" required>
+                        </mat-form-field>
+                    </div>
+                    <div id="summary_field">
+                        <mat-form-field appearance="outline" class="flex-full">
+                            <mat-label for="summary_sermon_input">Summary</mat-label>
+                            <input matInput
+                                placeholder="A short paragraph about what the sermon is aiming to teach"
+                                id="summary_sermon_input"
+                                class="responsive-width"
+                                formControlName="summary" required>
+                        </mat-form-field>
+                    </div>
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
                     <div class="responsive-expand flex-full last-input-container separate-bottom">
                         <editor
@@ -54,12 +74,14 @@
             </div>
             <ng-template #visitor>
                 <div class="visitor-view">
-                    <div class="responsive-breakdown space-between pad-bottom" id="top-metadata">
+                    <div class="responsive-breakdown space-between pad-bottom" id="top_metadata">
                         <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
                         <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
                     </div>
                     <div class="header-text">{{sermon.title}}</div>
+                    <div class="subheader-text">{{sermon.scripture}}</div>
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
+                    <div class="large-text separate-bottom">{{sermon.summary}}</div>
                     <form [formGroup]="sermonForm" #editSermonForm="ngForm">
                         <editor
                             apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
