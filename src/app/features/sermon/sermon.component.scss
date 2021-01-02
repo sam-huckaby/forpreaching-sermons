@@ -66,6 +66,33 @@
     }
 }
 
+#title_field,
+#scripture_field {
+    @include sm {
+        flex: 1 1 50%;
+    }
+}
+
+#title_field {
+    @include sm {
+        padding-right: 5px;
+    }
+}
+
+#scripture_field {
+    @include sm {
+        padding-left: 5px;
+    }
+}
+
+.sm-breakdown {
+    @include flex-col;
+
+    @include sm {
+        @include flex-row;
+    }
+}
+
 .responsive-expand {
     flex-grow: 1;
 }

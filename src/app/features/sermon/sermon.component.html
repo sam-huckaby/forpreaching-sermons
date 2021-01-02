@@ -11,25 +11,27 @@
                         <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
                         <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
                     </div>
-                    <div id="title_field">
-                        <mat-form-field appearance="outline" class="flex-full">
-                            <mat-label for="title_sermon_input">Title</mat-label>
-                            <input matInput
-                                placeholder="Ex. The Angry Potter"
-                                id="title_sermon_input"
-                                class="responsive-width"
-                                formControlName="title" required>
-                        </mat-form-field>
-                    </div>
-                    <div id="scripture_field">
-                        <mat-form-field appearance="outline" class="flex-full">
-                            <mat-label for="scripture_sermon_input">Scripture</mat-label>
-                            <input matInput
-                                placeholder="Ex. The Angry Potter"
-                                id="scripture_sermon_input"
-                                class="responsive-width"
-                                formControlName="scripture" required>
-                        </mat-form-field>
+                    <div class="sm-breakdown">
+                        <div id="title_field">
+                            <mat-form-field appearance="outline" class="flex-full">
+                                <mat-label for="title_sermon_input">Title</mat-label>
+                                <input matInput
+                                    placeholder="Ex. The Angry Potter"
+                                    id="title_sermon_input"
+                                    class="responsive-width"
+                                    formControlName="title" required>
+                            </mat-form-field>
+                        </div>
+                        <div id="scripture_field">
+                            <mat-form-field appearance="outline" class="flex-full">
+                                <mat-label for="scripture_sermon_input">Scripture</mat-label>
+                                <input matInput
+                                    placeholder="Ex. The Angry Potter"
+                                    id="scripture_sermon_input"
+                                    class="responsive-width"
+                                    formControlName="scripture" required>
+                            </mat-form-field>
+                        </div>
                     </div>
                     <div id="summary_field">
                         <mat-form-field appearance="outline" class="flex-full">
