@@ -3,39 +3,50 @@
         <h1>Create a new Sermon</h1>
     </div>
     <form id="create_form" [formGroup]="sermonForm" (ngSubmit)="onSubmit()" #createSermonForm="ngForm">
-        <div class="children-center" id="title_field_holder">
-            <mat-form-field id="title_field">
+        <div class="children-center form-field-holder" id="title_field_holder">
+            <mat-form-field class="form-field" id="title_field">
                 <mat-label>Title</mat-label>
                 <input matInput
                     placeholder="Ex. The Angry Potter"
                     id="title_create_input"
-                    class="responsive-width"
+                    class="responsive-width form-create-input"
                     formControlName="title" required>
             </mat-form-field>
         </div>
-        <div class="children-center" id="scripture_field_holder">
-            <mat-form-field id="scripture_field">
+        <div class="children-center form-field-holder" id="scripture_field_holder">
+            <mat-form-field class="form-field" id="scripture_field">
                 <mat-label>Scripture</mat-label>
                 <input matInput
                     placeholder="Ex. Romans 15:1-7"
                     id="scripture_create_input"
-                    class="responsive-width"
+                    class="responsive-width form-create-input"
                     formControlName="scripture" required>
             </mat-form-field>
         </div>
-        <div class="children-center" id="summary_field_holder">
-            <mat-form-field id="summary_field">
+        <div class="children-center form-field-holder" id="summary_field_holder">
+            <mat-form-field class="form-field" id="summary_field">
                 <mat-label>Summary</mat-label>
                 <input matInput
                     placeholder="A few sentences to describe the content of the sermon"
                     id="summary_create_input"
-                    class="responsive-width"
+                    class="responsive-width form-create-input"
                     formControlName="summary">
+            </mat-form-field>
+        </div>
+        <div class="children-center form-field-holder" id="summary_field_holder">
+            <mat-form-field class="form-field" id="video_field">
+                <mat-label>Video Recording</mat-label>
+                <input matInput
+                    placeholder="A link to the sermon recording on Youtube"
+                    id="video_create_input"
+                    class="responsive-width form-create-input"
+                    formControlName="video">
             </mat-form-field>
         </div>
         <div class="last-input-container flex-full children-center separate-bottom">
             <editor
                 initialValue="<p>There once was a sermon...</p>"
+                class="tiny-editor"
                 apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
                 formControlName="body"
                 [init]="{

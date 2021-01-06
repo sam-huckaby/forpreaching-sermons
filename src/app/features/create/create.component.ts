@@ -28,6 +28,7 @@ export class CreateComponent implements OnInit {
       Validators.required,
     ]),
     summary: new FormControl('', []),
+    video: new FormControl('', []),
     body: new FormControl('', [
       Validators.required,
     ]),

@@ -12,7 +12,7 @@
                         <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
                     </div>
                     <div class="sm-breakdown">
-                        <div id="title_field">
+                        <div id="title_field" class="form-field">
                             <mat-form-field appearance="outline" class="flex-full">
                                 <mat-label for="title_sermon_input">Title</mat-label>
                                 <input matInput
@@ -22,7 +22,7 @@
                                     formControlName="title" required>
                             </mat-form-field>
                         </div>
-                        <div id="scripture_field">
+                        <div id="scripture_field" class="form-field">
                             <mat-form-field appearance="outline" class="flex-full">
                                 <mat-label for="scripture_sermon_input">Scripture</mat-label>
                                 <input matInput
@@ -33,14 +33,24 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div id="summary_field">
+                    <div id="summary_field" class="form-field">
                         <mat-form-field appearance="outline" class="flex-full">
                             <mat-label for="summary_sermon_input">Summary</mat-label>
                             <input matInput
                                 placeholder="A few sentences to describe the content of the sermon"
                                 id="summary_sermon_input"
                                 class="responsive-width"
-                                formControlName="summary" required>
+                                formControlName="summary">
+                        </mat-form-field>
+                    </div>
+                    <div id="video_field" class="form-field">
+                        <mat-form-field appearance="outline" class="flex-full">
+                            <mat-label for="video_sermon_input">Video Recording</mat-label>
+                            <input matInput
+                                placeholder="A link to the sermon recording on Youtube"
+                                id="video_sermon_input"
+                                class="responsive-width"
+                                formControlName="video">
                         </mat-form-field>
                     </div>
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>

@@ -8,6 +8,8 @@
 .fullscreen-loading-veil {
     @include full-screen;
     @include loading-veil;
+    
+    z-index: 10;
 }
 
 .success-message {
@@ -28,15 +30,11 @@
     @include flex-full;
 }
 
-#title_field_holder,
-#scripture_field_holder,
-#summary_field_holder {
+.form-field-holder {
     @include flex-col;
 }
 
-#title_field,
-#scripture_field,
-#summary_field {
+.form-field {
     @include flex-col;
 
     width: calc(100% - 20px);
@@ -48,7 +46,7 @@
 
 #title_create_input,
 #scripture_create_input,
-#summary_create_input {
+.form-create-input {
     @include flex-col;
 }
 
@@ -62,4 +60,8 @@
 
 .separate-bottom {
     padding-bottom: 20px;
+}
+
+.tiny-editor {
+    width: 100%;
 }

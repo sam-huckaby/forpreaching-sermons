@@ -89,13 +89,14 @@ export class SermonComponent implements OnInit {
       this.sermon$.next(sermon);
       // Mark the form as pristine again
       this.sermonForm.markAsPristine();
+      // Stop displaying the loading veil
+      this.isLoading$.next(false);
     }, (caught) => {
+      // Stop displaying the loading veil
+      this.isLoading$.next(false);
       this._snackBar.open(caught.error.info, "Got it", {
         duration: 5000,
       });
-    }, () => {
-      // Stop displaying the loading veil
-      this.isLoading$.next(false);
     })
   }
 
@@ -109,6 +110,7 @@ export class SermonComponent implements OnInit {
       title: ['', Validators.required],
       scripture: ['', Validators.required],
       summary: [''],
+      video: [''],
       body: ['', Validators.required]
     });
 

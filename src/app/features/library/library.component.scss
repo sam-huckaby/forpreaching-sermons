@@ -8,6 +8,8 @@
 .fullscreen-loading-veil {
     @include full-screen;
     @include loading-veil;
+    
+    z-index: 10;
 }
 
 .success-message {
@@ -59,11 +61,6 @@
     height: 300px;
     max-width: 500px;
     overflow: auto;
-}
-
-.fullscreen-loading-veil {
-    @include full-screen;
-    @include loading-veil;
 }
 
 #coming_soon_text {

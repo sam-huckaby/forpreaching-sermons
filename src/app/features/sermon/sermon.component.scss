@@ -115,9 +115,7 @@
     }
 }
 
-#title_field,
-#scripture_field,
-#summary_field {
+.form-field {
     @include flex-col;
 }
 
@@ -148,6 +146,8 @@
 .fullscreen-loading-veil {
     @include full-screen;
     @include loading-veil;
+    
+    z-index: 10;
 }
 
 // Visitor View elements
