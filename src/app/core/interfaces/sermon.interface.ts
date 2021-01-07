@@ -4,6 +4,7 @@ export interface Sermon {
     title: string;
     scripture: string;
     summary: string;
+    video: string;
     body: string;
     creator: string;
     createdAt: Number;

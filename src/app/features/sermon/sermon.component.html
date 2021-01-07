@@ -4,77 +4,79 @@
     </div>
     <div class="loaded-sermon" *ngIf="sermon$ | async as sermon">
         <!-- If the sermon has been loaded already, we want it to remain visible under the loading veil -->
-        <div *ngIf="sermon._id">
+        <div class="sermon-keeper" *ngIf="sermon._id">
             <div class="owner-view" *ngIf="sermon.creator === userId; else visitor">
                 <form class="sermon-form" [formGroup]="sermonForm" #editSermonForm="ngForm">
-                    <div class="space-between" id="top_metadata">
-                        <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
-                        <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
-                    </div>
-                    <div class="sm-breakdown">
-                        <div id="title_field" class="form-field">
+                    <div class="form-scroller">
+                        <div class="space-between" id="top_metadata">
+                            <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
+                            <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
+                        </div>
+                        <div class="sm-breakdown">
+                            <div id="title_field" class="form-field">
+                                <mat-form-field appearance="outline" class="flex-full">
+                                    <mat-label for="title_sermon_input">Title</mat-label>
+                                    <input matInput
+                                        placeholder="Ex. The Angry Potter"
+                                        id="title_sermon_input"
+                                        class="responsive-width"
+                                        formControlName="title" required>
+                                </mat-form-field>
+                            </div>
+                            <div id="scripture_field" class="form-field">
+                                <mat-form-field appearance="outline" class="flex-full">
+                                    <mat-label for="scripture_sermon_input">Scripture</mat-label>
+                                    <input matInput
+                                        placeholder="Ex. The Angry Potter"
+                                        id="scripture_sermon_input"
+                                        class="responsive-width"
+                                        formControlName="scripture" required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div id="summary_field" class="form-field">
                             <mat-form-field appearance="outline" class="flex-full">
-                                <mat-label for="title_sermon_input">Title</mat-label>
+                                <mat-label for="summary_sermon_input">Summary</mat-label>
                                 <input matInput
-                                    placeholder="Ex. The Angry Potter"
-                                    id="title_sermon_input"
+                                    placeholder="A few sentences to describe the content of the sermon"
+                                    id="summary_sermon_input"
                                     class="responsive-width"
-                                    formControlName="title" required>
+                                    formControlName="summary">
                             </mat-form-field>
                         </div>
-                        <div id="scripture_field" class="form-field">
+                        <div id="video_field" class="form-field">
                             <mat-form-field appearance="outline" class="flex-full">
-                                <mat-label for="scripture_sermon_input">Scripture</mat-label>
+                                <mat-label for="video_sermon_input">Video Recording</mat-label>
                                 <input matInput
-                                    placeholder="Ex. The Angry Potter"
-                                    id="scripture_sermon_input"
+                                    placeholder="A link to the sermon recording on Youtube"
+                                    id="video_sermon_input"
                                     class="responsive-width"
-                                    formControlName="scripture" required>
+                                    formControlName="video">
                             </mat-form-field>
                         </div>
-                    </div>
-                    <div id="summary_field" class="form-field">
-                        <mat-form-field appearance="outline" class="flex-full">
-                            <mat-label for="summary_sermon_input">Summary</mat-label>
-                            <input matInput
-                                placeholder="A few sentences to describe the content of the sermon"
-                                id="summary_sermon_input"
-                                class="responsive-width"
-                                formControlName="summary">
-                        </mat-form-field>
-                    </div>
-                    <div id="video_field" class="form-field">
-                        <mat-form-field appearance="outline" class="flex-full">
-                            <mat-label for="video_sermon_input">Video Recording</mat-label>
-                            <input matInput
-                                placeholder="A link to the sermon recording on Youtube"
-                                id="video_sermon_input"
-                                class="responsive-width"
-                                formControlName="video">
-                        </mat-form-field>
-                    </div>
-                    <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
-                    <div class="responsive-expand flex-full last-input-container separate-bottom">
-                        <editor
-                            apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
-                            formControlName="body"
-                            (onKeyUp)="updateReadingTime()"
-                            [init]="{
-                                height: 500,
-                                menubar: false,
-                                plugins: [
-                                    'advlist autolink lists link image charmap print',
-                                    'preview anchor searchreplace visualblocks code',
-                                    'fullscreen insertdatetime media table paste',
-                                    'help wordcount'
-                                ],
-                                toolbar:
-                                    'undo redo | formatselect | bold italic underline | \
-                                    alignleft aligncenter alignright alignjustify | \
-                                    bullist numlist outdent indent | help'
-                            }"
-                        >
-                        </editor>
+                        <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
+                        <div class="responsive-expand flex-full last-input-container separate-bottom">
+                            <editor
+                                apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                                formControlName="body"
+                                (onKeyUp)="updateReadingTime()"
+                                [init]="{
+                                    height: 500,
+                                    menubar: false,
+                                    plugins: [
+                                        'advlist autolink lists link image charmap print',
+                                        'preview anchor searchreplace visualblocks code',
+                                        'fullscreen insertdatetime media table paste',
+                                        'help wordcount'
+                                    ],
+                                    toolbar:
+                                        'undo redo | formatselect | bold italic underline | \
+                                        alignleft aligncenter alignright alignjustify | \
+                                        bullist numlist outdent indent | help'
+                                }"
+                            >
+                            </editor>
+                        </div>
                     </div>
                     <div class="bottom-controls">
                         <button class="control-button" id="delete_button" [disabled]="!sermonForm.valid" (click)="deleteSermon()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
@@ -94,6 +96,10 @@
                     <div class="subheader-text">{{sermon.scripture}}</div>
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
                     <div class="large-text separate-bottom">{{sermon.summary}}</div>
+                    <div class="sermon-video">
+                        <!-- width="560" height="315" -->
+                        <iframe [src]="sanitizeUrl(sermon.video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                     <form [formGroup]="sermonForm" #editSermonForm="ngForm">
                         <editor
                             apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"

@@ -5,7 +5,10 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 import { AuthService } from '@auth0/auth0-angular';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Sermon } from '../../core/interfaces/sermon.interface';
@@ -40,6 +43,7 @@ export class SermonComponent implements OnInit {
     public auth: AuthService,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
+    private _sanitizer: DomSanitizer,
     public dialog: MatDialog) { }
 
   deleteSermon(): void {
@@ -103,6 +107,10 @@ export class SermonComponent implements OnInit {
   updateReadingTime() {
     // Is this the right place to do this? Will it be too time intensive with a large sermon?
     this.readTime = Math.ceil(((this.sermonForm.value.body.split(' ')).length/125)*60);
+  }
+
+  sanitizeUrl(url): SafeResourceUrl {
+    return this._sanitizer.bypassSecurityTrustResourceUrl(url.replace('watch', 'embed'));
   }
 
   ngOnInit(): void {

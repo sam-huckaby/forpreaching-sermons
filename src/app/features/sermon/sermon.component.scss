@@ -11,6 +11,15 @@
 
     // Take up the entire page
     flex: 1 1 100%;
+    height:100%;
+
+    .sermon-keeper {
+        height:100%;
+
+        .owner-view {
+            height:100%;
+        }
+    }
 }
 
 .owner-view,
@@ -26,6 +35,17 @@
 
     // Take up the entire page
     flex: 1 1 100%;
+    height: 100%;
+
+    .form-scroller {
+        flex: 0 1 auto;
+        overflow: auto;
+    }
+
+    .bottom-controls {
+        height: 40px;
+        padding-top: 10px;
+    }
 }
 
 .last-input-container {
