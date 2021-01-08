@@ -2,6 +2,7 @@
 <mat-toolbar color="primary" class="main-navigation-bar">
   <!-- TODO: Replace this with an actual logo -->
   <div class="main-navigation-child main-navigation-logo" routerLink="/">Sermons</div>
+  <!-- <img src="../assets/For-preaching.png" /> -->
   <span *ngIf="auth.isAuthenticated$ | async; else needLogin">
     <a class="main-navigation-child main-navigation-link menu-link"
     (click)="toggleDrawer()"

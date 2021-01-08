@@ -48,6 +48,17 @@
     }
 }
 
+.sermon-video {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    iframe {
+        margin-bottom: 20px;
+    }
+}
+
 .last-input-container {
     @include flex-col;
 }

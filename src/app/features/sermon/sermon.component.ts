@@ -110,7 +110,18 @@ export class SermonComponent implements OnInit {
   }
 
   sanitizeUrl(url): SafeResourceUrl {
-    return this._sanitizer.bypassSecurityTrustResourceUrl(url.replace('watch', 'embed'));
+    // Fact check
+    if (!url) {
+      // No URL provided, why have we come here?
+      return '';
+    }
+
+    let youtube = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(\?\S*)?$/;
+    let match = url.match(youtube);
+
+    if (match && match[1].length === 11) {
+      return this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+match[1]);
+    }
   }
 
   ngOnInit(): void {
