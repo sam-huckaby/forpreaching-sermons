@@ -11,6 +11,8 @@ import { AuthService } from '@auth0/auth0-angular';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
+
 import { Sermon } from '../../core/interfaces/sermon.interface';
 
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -28,9 +30,11 @@ export class SermonComponent implements OnInit {
 
   sermonForm: FormGroup;
   sermonId: String;
-  delete$: Observable<boolean>
   userId: String;
+  createLink: String = environment.studiesUrl + '/create/';
 
+  // Streams
+  delete$: Observable<boolean>
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   sermon$: BehaviorSubject<Sermon> = new BehaviorSubject({} as Sermon);
 

@@ -79,6 +79,9 @@
                             </editor>
                         </div>
                     </div>
+                    <div class="bottom-controls flex-col">
+                        <a class="control-button" id="studyGuide_button" [href]="createLink + sermon._id" target="_blank" mat-raised-button>Create Study Guide</a>
+                    </div>
                     <div class="bottom-controls">
                         <button class="control-button" id="delete_button" [disabled]="!sermonForm.valid" (click)="deleteSermon()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
                         <divl class="spacer"></divl>
