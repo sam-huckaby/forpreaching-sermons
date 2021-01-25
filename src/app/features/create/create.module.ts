@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+// Font Awesome
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // TinyMCE
 import { EditorModule } from '@tinymce/tinymce-angular';
 
@@ -24,6 +26,7 @@ import { CreateComponent } from './create.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    FontAwesomeModule,
     EditorModule,
   ]
 })

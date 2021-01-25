@@ -9,8 +9,8 @@
                 <input matInput
                     placeholder="Ex. The Angry Potter"
                     id="title_create_input"
-                    class="responsive-width form-create-input"
-                    formControlName="title" required>
+                    class="form-create-input"
+                    formControlName="title">
             </mat-form-field>
         </div>
         <div class="children-center form-field-holder" id="scripture_field_holder">
@@ -19,38 +19,39 @@
                 <input matInput
                     placeholder="Ex. Romans 15:1-7"
                     id="scripture_create_input"
-                    class="responsive-width form-create-input"
-                    formControlName="scripture" required>
+                    class="form-create-input"
+                    formControlName="scripture">
             </mat-form-field>
         </div>
         <div class="children-center form-field-holder" id="summary_field_holder">
             <mat-form-field class="form-field" id="summary_field">
-                <mat-label>Summary</mat-label>
+                <mat-label>Summary<span class="small-italic"> - Optional</span></mat-label>
                 <input matInput
                     placeholder="A few sentences to describe the content of the sermon"
                     id="summary_create_input"
-                    class="responsive-width form-create-input"
+                    class="form-create-input"
                     formControlName="summary">
             </mat-form-field>
         </div>
         <div class="children-center form-field-holder" id="summary_field_holder">
             <mat-form-field class="form-field" id="video_field">
-                <mat-label>Video Recording</mat-label>
+                <mat-label>Video Recording<span class="small-italic"> - Optional</span></mat-label>
                 <input matInput
                     placeholder="A link to the sermon recording on Youtube"
                     id="video_create_input"
-                    class="responsive-width form-create-input"
+                    class="form-create-input"
                     formControlName="video">
             </mat-form-field>
         </div>
-        <div class="last-input-container flex-full children-center separate-bottom">
+        <div id="more-later-notice"><fa-icon [icon]="faInfoCircle"></fa-icon>&nbsp;You will be able to fill in more details on the next screen.</div>
+        <div class="last-input-container flex-full children-center separate-bottom only-medium-screens">
             <editor
                 initialValue="<p>There once was a sermon...</p>"
                 class="tiny-editor"
                 apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
                 formControlName="body"
                 [init]="{
-                    height: 500,
+                    height: 400,
                     menubar: false,
                     placeholder: 'Ex. There once was a potter who was always angry',
                     plugins: [

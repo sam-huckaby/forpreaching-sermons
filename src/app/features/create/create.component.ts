@@ -6,6 +6,8 @@ import { environment } from '../../../environments/environment';
 import { of } from 'rxjs';
 import { share } from 'rxjs/operators';
 
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -14,6 +16,9 @@ import { share } from 'rxjs/operators';
 export class CreateComponent implements OnInit {
   // The form itself
   @ViewChild('createSermonForm') createForm;
+
+  // Icons
+  faInfoCircle = faInfoCircle;
 
   // Observables
   submit$: any;
@@ -29,9 +34,7 @@ export class CreateComponent implements OnInit {
     ]),
     summary: new FormControl('', []),
     video: new FormControl('', []),
-    body: new FormControl('', [
-      Validators.required,
-    ]),
+    body: new FormControl('', []),
   });
 
   constructor(private http: HttpClient, private router: Router) { }

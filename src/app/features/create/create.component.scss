@@ -44,6 +44,32 @@
     }
 }
 
+.small-italic {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.only-medium-screens {
+    display: none;
+
+    @include md {
+        display: block;
+        height: 400px;
+    }
+}
+#more-later-notice {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-bottom: 15px;
+    font-style: italic;
+    color: rgb(110, 110, 110);
+
+    @include md {
+        display: none;
+    }
+}
+
 #title_create_input,
 #scripture_create_input,
 .form-create-input {
