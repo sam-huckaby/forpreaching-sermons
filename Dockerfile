@@ -13,7 +13,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install and cache app dependencies
 COPY package.json /app/package.json
 COPY yarn.lock /app/yarn.lock
-RUN yarn install
+RUN yarn install --network-timeout 120000
 RUN yarn global add @angular/cli
 
 # add app
