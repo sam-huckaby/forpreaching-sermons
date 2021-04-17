@@ -129,6 +129,7 @@ export class SermonComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('INFOSEC');
     this.sermonForm = this.formBuilder.group({
       title: ['', Validators.required],
       scripture: ['', Validators.required],
