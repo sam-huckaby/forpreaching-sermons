@@ -153,8 +153,10 @@ export class SermonComponent implements OnInit {
       this.auth.user$.subscribe((user) => {
         // Once we have the user, we can grab the sermon from the DB
         this.userId = user.sub;
+        console.log('USER SUBSCRIBE');
         this.http.get<Sermon>('/api/sermons/'+params['id'], {responseType: 'json'})
         .subscribe((sermon) => {
+          console.log('SERMON SUBSCRIBE');
           // Once we have the sermon, populate the data management BehaviorSubject
           this.sermon$.next(sermon);
           // Keep track of this sermon's ID
