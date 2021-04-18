@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   async ngOnInit() {
-    console.log('INFOSEC WAS HERE');
     // Request the 10 most recent sermons (for users without an account);
     this.http.get('/unsecured/topten/sermons').subscribe(result => {
       this.lastTenSermons = result;
