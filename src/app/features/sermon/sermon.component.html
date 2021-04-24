@@ -8,79 +8,88 @@
             <div class="owner-view" *ngIf="sermon.creator === userId; else visitor">
                 <form class="sermon-form" [formGroup]="sermonForm" #editSermonForm="ngForm">
                     <div class="form-scroller">
-                        <div class="space-between" id="top_metadata">
-                            <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
-                            <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
-                        </div>
-                        <div class="sm-breakdown">
-                            <div id="title_field" class="form-field">
-                                <mat-form-field appearance="outline" class="flex-full">
-                                    <mat-label for="title_sermon_input">Title</mat-label>
-                                    <input matInput
-                                        placeholder="Ex. The Angry Potter"
-                                        id="title_sermon_input"
-                                        class="responsive-width"
-                                        formControlName="title" required>
-                                </mat-form-field>
-                            </div>
-                            <div id="scripture_field" class="form-field">
-                                <mat-form-field appearance="outline" class="flex-full">
-                                    <mat-label for="scripture_sermon_input">Scripture</mat-label>
-                                    <input matInput
-                                        placeholder="Ex. The Angry Potter"
-                                        id="scripture_sermon_input"
-                                        class="responsive-width"
-                                        formControlName="scripture" required>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div id="summary_field" class="form-field">
-                            <mat-form-field appearance="outline" class="flex-full">
-                                <mat-label for="summary_sermon_input">Summary</mat-label>
-                                <input matInput
-                                    placeholder="A few sentences to describe the content of the sermon"
-                                    id="summary_sermon_input"
-                                    class="responsive-width"
-                                    formControlName="summary">
-                            </mat-form-field>
-                        </div>
-                        <div id="video_field" class="form-field">
-                            <mat-form-field appearance="outline" class="flex-full">
-                                <mat-label for="video_sermon_input">Video Recording</mat-label>
-                                <input matInput
-                                    placeholder="A link to the sermon recording on Youtube"
-                                    id="video_sermon_input"
-                                    class="responsive-width"
-                                    pattern="(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(\?\S*)?$"
-                                    formControlName="video">
-                            </mat-form-field>
-                        </div>
-                        <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
-                        <div class="responsive-expand flex-full last-input-container separate-bottom">
-                            <editor
-                                apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
-                                formControlName="body"
-                                (onKeyUp)="updateReadingTime()"
-                                [init]="{
-                                    height: 500,
-                                    menubar: false,
-                                    plugins: [
-                                        'advlist autolink lists link image charmap print',
-                                        'preview anchor searchreplace visualblocks code',
-                                        'fullscreen insertdatetime media table paste',
-                                        'help wordcount'
-                                    ],
-                                    toolbar:
-                                        'undo redo | formatselect | bold italic underline | \
-                                        alignleft aligncenter alignright alignjustify | \
-                                        bullist numlist outdent indent | help'
-                                }"
-                            >
-                            </editor>
-                        </div>
-                    </div>
-                    <div class="bottom-controls flex-col">
-                        <a class="control-button" id="studyGuide_button" [href]="createLink + sermon._id" target="_blank" mat-raised-button>Create Study Guide</a>
+                        <mat-tab-group class="sermon_tab_group" #sermonTabGroup (selectedTabChange)="handleTabChange($event)">
+                            <mat-tab label="Details">
+                                <div class="space-between" id="top_metadata">
+                                    <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
+                                    <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
+                                </div>
+                                <div class="sm-breakdown">
+                                    <div id="title_field" class="form-field">
+                                        <mat-form-field appearance="outline" class="flex-full">
+                                            <mat-label for="title_sermon_input">Title</mat-label>
+                                            <input matInput
+                                                placeholder="Ex. The Angry Potter"
+                                                id="title_sermon_input"
+                                                class="responsive-width"
+                                                formControlName="title" required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div id="scripture_field" class="form-field">
+                                        <mat-form-field appearance="outline" class="flex-full">
+                                            <mat-label for="scripture_sermon_input">Scripture</mat-label>
+                                            <input matInput
+                                                placeholder="Ex. The Angry Potter"
+                                                id="scripture_sermon_input"
+                                                class="responsive-width"
+                                                formControlName="scripture" required>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div id="summary_field" class="form-field">
+                                    <mat-form-field appearance="outline" class="flex-full">
+                                        <mat-label for="summary_sermon_input">Summary</mat-label>
+                                        <input matInput
+                                            placeholder="A few sentences to describe the content of the sermon"
+                                            id="summary_sermon_input"
+                                            class="responsive-width"
+                                            formControlName="summary">
+                                    </mat-form-field>
+                                </div>
+                                <div id="video_field" class="form-field">
+                                    <mat-form-field appearance="outline" class="flex-full">
+                                        <mat-label for="video_sermon_input">Video Recording</mat-label>
+                                        <input matInput
+                                            placeholder="A link to the sermon recording on Youtube"
+                                            id="video_sermon_input"
+                                            class="responsive-width"
+                                            pattern="(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(\?\S*)?$"
+                                            formControlName="video">
+                                    </mat-form-field>
+                                </div>
+                                <div class="bottom-controls flex-col">
+                                    <a class="control-button" id="studyGuide_button" [href]="createLink + sermon._id" target="_blank" mat-raised-button>Create Study Guide</a>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Sermon">
+                                <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
+                                <div class="responsive-expand flex-full full-height last-input-container separate-bottom">
+                                    <editor
+                                        class="sermon_editor"
+                                        apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                                        formControlName="body"
+                                        (onKeyUp)="updateReadingTime()"
+                                        *ngIf="activeTabIndex===1"
+                                        [init]="{
+                                            height: '100%',
+                                            menubar: false,
+                                            plugins: [
+                                                'advlist autolink lists link image charmap print',
+                                                'preview anchor searchreplace visualblocks code',
+                                                'fullscreen insertdatetime media table paste',
+                                                'help wordcount'
+                                            ],
+                                            toolbar:
+                                                'undo redo | formatselect | bold italic underline | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | help'
+                                        }"
+                                    >
+                                    </editor>
+                                </div>
+                            </mat-tab>
+                            <!-- <mat-tab label="Extras"> Content 3 </mat-tab> -->
+                        </mat-tab-group>
                     </div>
                     <div class="bottom-controls">
                         <button class="control-button" id="delete_button" [disabled]="!sermonForm.valid" (click)="deleteSermon()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
@@ -92,33 +101,41 @@
             </div>
             <ng-template #visitor>
                 <div class="visitor-view">
-                    <div class="responsive-breakdown space-between pad-bottom" id="top_metadata">
-                        <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
-                        <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
-                    </div>
-                    <div class="header-text">{{sermon.title}}</div>
-                    <div class="subheader-text">{{sermon.scripture}}</div>
-                    <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
-                    <div class="large-text separate-bottom">{{sermon.summary}}</div>
-                    <div class="sermon-video">
-                        <!-- width="560" height="315" -->
-                        <iframe [src]="sanitizeUrl(sermon.video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <form [formGroup]="sermonForm" #editSermonForm="ngForm">
-                        <editor
-                            apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
-                            formControlName="body"
-                            disabled="true"
-                            (onKeyUp)="updateReadingTime()"
-                            [init]="{
-                                height: 500,
-                                menubar: false,
-                                plugins: [],
-                                toolbar: ''
-                            }"
-                        >
-                        </editor>
-                    </form>
+                    <mat-tab-group class="sermon_tab_group" #sermonTabGroup (selectedTabChange)="handleTabChange($event)">
+                        <mat-tab label="Details">
+                            <div class="responsive-breakdown space-between pad-bottom" id="top_metadata">
+                                <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
+                                <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
+                            </div>
+                            <div class="header-text">{{sermon.title}}</div>
+                            <div class="subheader-text">{{sermon.scripture}}</div>
+                            <div class="large-text separate-bottom">{{sermon.summary}}</div>
+                            <div class="sermon-video">
+                                <!-- width="560" height="315" -->
+                                <iframe [src]="sanitizeUrl(sermon.video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Sermon">
+                            <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
+                            <form [formGroup]="sermonForm" #editSermonForm="ngForm" class="fullsize-form">
+                                <editor
+                                    apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                                    formControlName="body"
+                                    class="sermon_editor"
+                                    disabled="true"
+                                    (onKeyUp)="updateReadingTime()"
+                                    *ngIf="activeTabIndex===1"
+                                    [init]="{
+                                        height: '100%',
+                                        menubar: false,
+                                        plugins: [],
+                                        toolbar: ''
+                                    }"
+                                >
+                                </editor>
+                            </form>
+                        </mat-tab>
+                    </mat-tab-group>
                 </div>
             </ng-template>
         </div>

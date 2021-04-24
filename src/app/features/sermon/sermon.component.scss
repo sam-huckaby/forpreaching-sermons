@@ -16,7 +16,8 @@
     .sermon-keeper {
         height:100%;
 
-        .owner-view {
+        .owner-view,
+        .visitor-view {
             height:100%;
         }
     }
@@ -38,8 +39,10 @@
     height: 100%;
 
     .form-scroller {
-        flex: 0 1 auto;
+        flex: 1 1 auto;
         overflow: auto;
+        display: flex;
+        flex-direction: column;
     }
 
     .bottom-controls {
@@ -208,4 +211,29 @@
 .flex-col { 
     display: flex;
     flex-direction: column;
+}
+
+.sermon_tab_group {
+    flex: 1 1 auto;
+
+    .fullsize-form {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    // ::ng-deep is deprecated and being removed, it effectively moves the style to a global scope
+    // I'm not sure why it is necessary for this style, but it is. (https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep)
+    ::ng-deep .mat-tab-body-wrapper {
+        flex: 1 1 auto;
+        
+        .mat-tab-body-content {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+.sermon_editor {
+    height: 100%;
 }

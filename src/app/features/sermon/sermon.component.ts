@@ -1,11 +1,15 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+// Angular libraries
+import { Component, OnInit, AfterViewInit, ViewChild, Inject } from '@angular/core';
 import { Location } from '@angular/common'
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+// Angular Material libraries
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '@auth0/auth0-angular';
 
@@ -22,9 +26,12 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './sermon.component.html',
   styleUrls: ['./sermon.component.scss']
 })
-export class SermonComponent implements OnInit {
+export class SermonComponent implements OnInit,AfterViewInit {
   // The form itself
   @ViewChild('editSermonForm') editForm;
+  @ViewChild('sermonTabGroup', { static: false }) public tabGroup: any;
+
+  public activeTabIndex: number | undefined = undefined;
 
   faTrash = faTrash;
 
@@ -49,6 +56,59 @@ export class SermonComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _sanitizer: DomSanitizer,
     public dialog: MatDialog) { }
+
+  public ngOnInit(): void {
+    this.sermonForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      scripture: ['', Validators.required],
+      summary: [''],
+      video: [''],
+      body: ['', Validators.required]
+    });
+
+    // Display loading veil
+    this.isLoading$.next(true);
+
+    // Anytime the current sermon changes, patch the form to match
+    this.sermon$.subscribe((newValue) => {
+      this.sermonForm.patchValue(newValue);
+      // A quick calculation using an average reading time of 125 WPM
+      this.readTime = Math.ceil(((this.sermonForm.value.body.split(' ')).length/125)*60);
+    });
+
+    // Retrieve the route params so we can get the user and then the sermon
+    this.route.params.subscribe(params => {
+      // Retrieve the user information from Auth0
+      this.auth.user$.subscribe((user) => {
+        // Once we have the user, we can grab the sermon from the DB
+        this.userId = user.sub;
+        this.http.get<Sermon>('/api/sermons/'+params['id'], {responseType: 'json'})
+        .subscribe((sermon) => {
+          // Once we have the sermon, populate the data management BehaviorSubject
+          this.sermon$.next(sermon);
+          // Keep track of this sermon's ID
+          this.sermonId = sermon._id;
+        }, (caught) => {
+          this._snackBar.open(caught.error.info, "Got it", {
+            duration: 5000,
+          });
+        }, () => {
+          // Stop displaying the loading veil no matter what
+          this.isLoading$.next(false);
+        });
+      });
+    });
+  }
+
+  public ngAfterViewInit(): void {
+    if (this.tabGroup) {
+      this.activeTabIndex = this.tabGroup.selectedIndex;
+    }
+  }
+
+  public handleTabChange(e: MatTabChangeEvent) {
+    this.activeTabIndex = e.index;
+  }
 
   deleteSermon(): void {
     // Display loading veil
@@ -128,49 +188,7 @@ export class SermonComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    console.log('INFOSEC');
-    this.sermonForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      scripture: ['', Validators.required],
-      summary: [''],
-      video: [''],
-      body: ['', Validators.required]
-    });
-
-    // Display loading veil
-    this.isLoading$.next(true);
-
-    // Anytime the current sermon changes, patch the form to match
-    this.sermon$.subscribe((newValue) => {
-      this.sermonForm.patchValue(newValue);
-      // A quick calculation using an average reading time of 125 WPM
-      this.readTime = Math.ceil(((this.sermonForm.value.body.split(' ')).length/125)*60);
-    });
-
-    // Retrieve the route params so we can get the user and then the sermon
-    this.route.params.subscribe(params => {
-      // Retrieve the user information from Auth0
-      this.auth.user$.subscribe((user) => {
-        // Once we have the user, we can grab the sermon from the DB
-        this.userId = user.sub;
-        this.http.get<Sermon>('/api/sermons/'+params['id'], {responseType: 'json'})
-        .subscribe((sermon) => {
-          // Once we have the sermon, populate the data management BehaviorSubject
-          this.sermon$.next(sermon);
-          // Keep track of this sermon's ID
-          this.sermonId = sermon._id;
-        }, (caught) => {
-          this._snackBar.open(caught.error.info, "Got it", {
-            duration: 5000,
-          });
-        }, () => {
-          // Stop displaying the loading veil no matter what
-          this.isLoading$.next(false);
-        });
-      });
-    });
-  }
+  
 }
 
 // Pretty simple dialog, so I'm just embedding it here
