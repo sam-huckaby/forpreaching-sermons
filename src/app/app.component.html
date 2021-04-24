@@ -1,7 +1,10 @@
 <!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
 <mat-toolbar color="primary" class="main-navigation-bar">
   <!-- TODO: Replace this with an actual logo -->
-  <div class="main-navigation-child main-navigation-logo" routerLink="/">Sermons</div>
+  <div class="main-navigation-child main-navigation-logo" routerLink="/">
+    <img src="../assets/logo.png" id="app_logo" />
+    <span id="app_title">Sermons</span>
+  </div>
   <!-- <img src="../assets/For-preaching.png" /> -->
   <span *ngIf="auth.isAuthenticated$ | async; else needLogin">
     <a class="main-navigation-child main-navigation-link menu-link"
