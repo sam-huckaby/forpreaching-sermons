@@ -80,7 +80,7 @@
                                                 'help wordcount'
                                             ],
                                             toolbar:
-                                                'undo redo | formatselect | bold italic underline | \
+                                                'undo redo | formatselect | bold italic underline | backcolor forecolor | \
                                                 alignleft aligncenter alignright alignjustify | \
                                                 bullist numlist outdent indent | help'
                                         }"
@@ -110,7 +110,7 @@
                             <div class="header-text">{{sermon.title}}</div>
                             <div class="subheader-text">{{sermon.scripture}}</div>
                             <div class="large-text separate-bottom">{{sermon.summary}}</div>
-                            <div class="sermon-video">
+                            <div class="sermon-video" *ngIf="sermon.video">
                                 <!-- width="560" height="315" -->
                                 <iframe [src]="sanitizeUrl(sermon.video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
