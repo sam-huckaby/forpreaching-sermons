@@ -174,7 +174,22 @@
 }
 
 .spacer {
-    flex: 1 1 100%;
+    flex: 1 1 50%;
+}
+
+.save-status {
+    line-height: 12px;
+    font-size: 12px;
+    text-align: right;
+
+    .icon {
+        &.dirty {
+            color: #4499FF;
+        }
+        &.clean {
+            color: darkgreen;
+        }
+    }
 }
 
 .fullscreen-loading-veil {

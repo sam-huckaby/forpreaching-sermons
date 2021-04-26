@@ -57,9 +57,6 @@
                                             formControlName="video">
                                     </mat-form-field>
                                 </div>
-                                <div class="bottom-controls flex-col">
-                                    <a class="control-button" id="studyGuide_button" [href]="createLink + sermon._id" target="_blank" mat-raised-button>Create Study Guide</a>
-                                </div>
                             </mat-tab>
                             <mat-tab label="Sermon">
                                 <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
@@ -88,14 +85,17 @@
                                     </editor>
                                 </div>
                             </mat-tab>
-                            <!-- <mat-tab label="Extras"> Content 3 </mat-tab> -->
+                            <!-- <mat-tab label="Critiques"> A place to display the confidential sermon criticism responses </mat-tab> -->
                         </mat-tab-group>
                     </div>
+                    <span class="save-status">
+                        <span *ngIf="saveStatus"><fa-icon [icon]="faCheck" class="icon clean"></fa-icon> Saved!</span>
+                        <span *ngIf="!saveStatus"><fa-icon [icon]="faSync" class="icon dirty"></fa-icon> Saving...</span>
+                    </span>
                     <div class="bottom-controls">
                         <button class="control-button" id="delete_button" [disabled]="!sermonForm.valid" (click)="deleteSermon()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
                         <divl class="spacer"></divl>
-                        <button class="control-button" id="reset_button" [disabled]="!sermonForm.dirty" (click)="resetChanges()" mat-raised-button>Reset</button>
-                        <button class="control-button" id="save_button" [disabled]="!sermonForm.valid || !sermonForm.dirty" (click)="saveChanges()" mat-raised-button color="primary">Save</button>
+                        <a class="control-button" id="studyGuide_button" [href]="createLink + sermon._id" target="_blank" mat-raised-button>Create Study Guide</a>
                     </div>
                 </form>
             </div>

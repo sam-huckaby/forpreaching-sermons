@@ -13,13 +13,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '@auth0/auth0-angular';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { tap, debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
 import { Sermon } from '../../core/interfaces/sermon.interface';
 
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faSync, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'forpreaching-sermon',
@@ -34,11 +35,16 @@ export class SermonComponent implements OnInit,AfterViewInit {
   public activeTabIndex: number | undefined = undefined;
 
   faTrash = faTrash;
+  faSync = faSync;
+  faCheck = faCheck;
 
   sermonForm: FormGroup;
   sermonId: String;
   userId: String;
   createLink: String = environment.studiesUrl + '/create/';
+
+  private unsubscribe = new Subject<void>();
+  private saveStatus: boolean = true;
 
   // Streams
   delete$: Observable<boolean>
@@ -57,7 +63,10 @@ export class SermonComponent implements OnInit,AfterViewInit {
     private _sanitizer: DomSanitizer,
     public dialog: MatDialog) { }
 
-  public ngOnInit(): void {
+  public ngOnInit() {
+    // Display loading veil
+    this.isLoading$.next(true);
+
     this.sermonForm = this.formBuilder.group({
       title: ['', Validators.required],
       scripture: ['', Validators.required],
@@ -66,8 +75,17 @@ export class SermonComponent implements OnInit,AfterViewInit {
       body: ['', Validators.required]
     });
 
-    // Display loading veil
-    this.isLoading$.next(true);
+    // Auto-save functionality, so that I stop losing sermon content because I forgot to click "save"
+    this.sermonForm.valueChanges.pipe(
+      tap(() => {
+        this.saveStatus = false;
+      }),
+      debounceTime(1500),
+      switchMap(formValue => this.doSave(this.sermonId, formValue)),
+      takeUntil(this.unsubscribe)
+    ).subscribe(() => {
+      this.saveStatus = true;
+    });
 
     // Anytime the current sermon changes, patch the form to match
     this.sermon$.subscribe((newValue) => {
@@ -104,6 +122,10 @@ export class SermonComponent implements OnInit,AfterViewInit {
     if (this.tabGroup) {
       this.activeTabIndex = this.tabGroup.selectedIndex;
     }
+  }
+
+  public ngOnDestroy(): void {
+      this.unsubscribe.next()
   }
 
   public handleTabChange(e: MatTabChangeEvent) {
@@ -146,12 +168,15 @@ export class SermonComponent implements OnInit,AfterViewInit {
     this.sermonForm.reset(this.sermon$.getValue());
   }
 
-  saveChanges(): void {
-    // Display loading veil
-    this.isLoading$.next(true);
-
+  saveChanges(silent: boolean = false): void {
+    if(!silent) {
+      // Display loading veil
+      this.isLoading$.next(true);
+    }
+    
     // Send the request to save the form's data
-    this.http.put<Sermon>('/api/sermons/'+this.sermonId, this.sermonForm.value, {responseType: 'json'})
+    // this.http.put<Sermon>('/api/sermons/'+this.sermonId, this.sermonForm.value, {responseType: 'json'})
+    this.doSave(this.sermonId, this.sermonForm.value)
     .subscribe((sermon) => {
       // Once we have the sermon, populate the data management BehaviorSubject
       this.sermon$.next(sermon);
@@ -166,6 +191,10 @@ export class SermonComponent implements OnInit,AfterViewInit {
         duration: 5000,
       });
     })
+  }
+
+  doSave(sermonId, values) {
+    return this.http.put<Sermon>('/api/sermons/'+sermonId, values, {responseType: 'json'});
   }
 
   updateReadingTime() {
