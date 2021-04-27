@@ -10,10 +10,13 @@
                     <div class="form-scroller">
                         <mat-tab-group class="sermon_tab_group" #sermonTabGroup (selectedTabChange)="handleTabChange($event)">
                             <mat-tab label="Details">
-                                <div class="space-between" id="top_metadata">
-                                    <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
-                                    <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
-                                </div>
+                                <span class="top-bar save-status">
+                                    <span *ngIf="saveStatus" class="fade-out"><fa-icon [icon]="faCheck" class="icon clean"></fa-icon> Saved!</span>
+                                    <span *ngIf="!saveStatus">
+                                        <span *ngIf="failStatus"><fa-icon [icon]="faExclamationTriangle" class="icon error"></fa-icon> Saving Failed</span>
+                                        <span *ngIf="!failStatus"><fa-icon [icon]="faSync" class="icon dirty"></fa-icon> Saving...</span>
+                                    </span>
+                                </span>
                                 <div class="sm-breakdown">
                                     <div id="title_field" class="form-field">
                                         <mat-form-field appearance="outline" class="flex-full">
@@ -57,10 +60,28 @@
                                             formControlName="video">
                                     </mat-form-field>
                                 </div>
+                                <div id="resource_field" class="form-field">
+                                    <mat-form-field appearance="outline" class="flex-full">
+                                        <mat-label for="resource_material_input">Link to Resource Material</mat-label>
+                                        <input matInput
+                                            placeholder="An Amazon link to purchase the resource"
+                                            id="video_sermon_input"
+                                            class="responsive-width"
+                                            pattern="https?:\/\/(?=(?:....)?amazon|smile)(www|smile)\S+com(((?:\/(?:dp|gp)\/([A-Z0-9]+))?\S*[?&]?(?:tag=))?\S*?)(?:#)?(\w*?-\w{2})?(\S*)(#?\S*)+">
+                                    </mat-form-field>
+                                </div>
+                                <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
+                                <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
                             </mat-tab>
                             <mat-tab label="Sermon">
-                                <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
-                                <div class="responsive-expand flex-full full-height last-input-container separate-bottom">
+                                <div class="field-label over-sermon">
+                                    <span>Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</span>
+                                    <span class="save-status">
+                                        <span *ngIf="saveStatus" class="fade-out"><fa-icon [icon]="faCheck" class="icon clean"></fa-icon> Saved!</span>
+                                        <span *ngIf="!saveStatus"><fa-icon [icon]="faSync" class="icon dirty"></fa-icon> Saving...</span>
+                                    </span>
+                                </div>
+                                <div class="responsive-expand flex-full full-height last-input-container">
                                     <editor
                                         class="sermon_editor"
                                         apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
@@ -88,10 +109,6 @@
                             <!-- <mat-tab label="Critiques"> A place to display the confidential sermon criticism responses </mat-tab> -->
                         </mat-tab-group>
                     </div>
-                    <span class="save-status">
-                        <span *ngIf="saveStatus"><fa-icon [icon]="faCheck" class="icon clean"></fa-icon> Saved!</span>
-                        <span *ngIf="!saveStatus"><fa-icon [icon]="faSync" class="icon dirty"></fa-icon> Saving...</span>
-                    </span>
                     <div class="bottom-controls">
                         <button class="control-button" id="delete_button" [disabled]="!sermonForm.valid" (click)="deleteSermon()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
                         <divl class="spacer"></divl>

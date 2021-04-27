@@ -169,12 +169,20 @@
     padding-bottom: 20px;
 }
 
+.over-sermon {
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
 .sermon-content {
     height: 400px;
 }
 
 .spacer {
-    flex: 1 1 50%;
+    flex: 1 1 10%;
 }
 
 .save-status {
@@ -182,12 +190,33 @@
     font-size: 12px;
     text-align: right;
 
+    &.top-bar {
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 5px 0;
+    }
+
+    .fade-out {
+        animation:fadeOut 3s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes fadeOut{
+        from{opacity: 1;}
+        to {opacity: 0};
+    }
+
     .icon {
         &.dirty {
             color: #4499FF;
         }
         &.clean {
             color: darkgreen;
+        }
+        &.error {
+            color: darkred;
         }
     }
 }

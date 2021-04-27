@@ -13,14 +13,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '@auth0/auth0-angular';
 
-import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { tap, debounceTime, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject, BehaviorSubject, Observable, empty } from 'rxjs';
+import { tap, debounceTime, switchMap, takeUntil, catchError, map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
 import { Sermon } from '../../core/interfaces/sermon.interface';
 
-import { faTrash, faSync, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faSync, faCheck, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'forpreaching-sermon',
@@ -37,6 +37,7 @@ export class SermonComponent implements OnInit,AfterViewInit {
   faTrash = faTrash;
   faSync = faSync;
   faCheck = faCheck;
+  faExclamationTriangle = faExclamationTriangle;
 
   sermonForm: FormGroup;
   sermonId: String;
@@ -45,6 +46,7 @@ export class SermonComponent implements OnInit,AfterViewInit {
 
   private unsubscribe = new Subject<void>();
   private saveStatus: boolean = true;
+  private failStatus: boolean = false;
 
   // Streams
   delete$: Observable<boolean>
@@ -78,6 +80,7 @@ export class SermonComponent implements OnInit,AfterViewInit {
     // Auto-save functionality, so that I stop losing sermon content because I forgot to click "save"
     this.sermonForm.valueChanges.pipe(
       tap(() => {
+        this.failStatus = false;
         this.saveStatus = false;
       }),
       debounceTime(1500),
@@ -85,6 +88,8 @@ export class SermonComponent implements OnInit,AfterViewInit {
       takeUntil(this.unsubscribe)
     ).subscribe(() => {
       this.saveStatus = true;
+    }, (e) => {
+      // TODO: Create an error message to alert the user to fix their data
     });
 
     // Anytime the current sermon changes, patch the form to match
@@ -194,7 +199,21 @@ export class SermonComponent implements OnInit,AfterViewInit {
   }
 
   doSave(sermonId, values) {
-    return this.http.put<Sermon>('/api/sermons/'+sermonId, values, {responseType: 'json'});
+    return this.http.put<Sermon>('/api/sermons/'+sermonId, values, {responseType: 'json'}).pipe(
+      map((res: Sermon) => {
+        if (res) {
+          return res;
+        } else {
+          return {} as Sermon;
+        }
+      }),
+      catchError(err => {
+        // report error to user
+        this.failStatus = true;
+        // Important: stop observable from emitting anything
+        return empty();
+    })
+    );
   }
 
   updateReadingTime() {
