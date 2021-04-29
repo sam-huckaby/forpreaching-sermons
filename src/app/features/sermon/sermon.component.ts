@@ -20,7 +20,7 @@ import { environment } from '../../../environments/environment';
 
 import { Sermon } from '../../core/interfaces/sermon.interface';
 
-import { faTrash, faSync, faCheck, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faSync, faCheck, faExclamationTriangle, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'forpreaching-sermon',
@@ -30,6 +30,7 @@ import { faTrash, faSync, faCheck, faExclamationTriangle } from '@fortawesome/fr
 export class SermonComponent implements OnInit,AfterViewInit {
   // The form itself
   @ViewChild('editSermonForm') editForm;
+  @ViewChild('commentSermonForm') commentSermonForm;
   @ViewChild('sermonTabGroup', { static: false }) public tabGroup: any;
 
   public activeTabIndex: number | undefined = undefined;
@@ -38,8 +39,10 @@ export class SermonComponent implements OnInit,AfterViewInit {
   faSync = faSync;
   faCheck = faCheck;
   faExclamationTriangle = faExclamationTriangle;
+  faPaperPlane = faPaperPlane;
 
   sermonForm: FormGroup;
+  commentForm: FormGroup;
   sermonId: String;
   userId: String;
   createLink: String = environment.studiesUrl + '/create/';
@@ -74,6 +77,11 @@ export class SermonComponent implements OnInit,AfterViewInit {
       scripture: ['', Validators.required],
       summary: [''],
       video: [''],
+      allowComments: [false],
+      body: ['', Validators.required]
+    });
+
+    this.commentForm = this.formBuilder.group({
       body: ['', Validators.required]
     });
 
@@ -196,6 +204,15 @@ export class SermonComponent implements OnInit,AfterViewInit {
         duration: 5000,
       });
     })
+  }
+
+  commentOnSermon(): void {
+    console.log('COMMENT');
+    // TODO:
+    // build request populated with commentForm's values
+    this.http.post('/api/sermons/'+this.sermonId+'/comments', this.commentForm.value, {responseType: 'json'}).subscribe((success) => {
+      console.log('We did it!');
+    });
   }
 
   doSave(sermonId, values) {

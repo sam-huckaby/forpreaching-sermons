@@ -60,6 +60,13 @@
                                             formControlName="video">
                                     </mat-form-field>
                                 </div>
+                                <div id="allow_comments_field" class="form-field">
+                                    <mat-checkbox
+                                            matInput
+                                            class="responsive-width"
+                                            id="allowComments_sermon_input"
+                                            formControlName="allowComments">Allow Comments</mat-checkbox>
+                                </div>
                                 <div id="resource_field" class="form-field">
                                     <mat-form-field appearance="outline" class="flex-full">
                                         <mat-label for="resource_material_input">Link to Resource Material</mat-label>
@@ -106,7 +113,14 @@
                                     </editor>
                                 </div>
                             </mat-tab>
-                            <!-- <mat-tab label="Critiques"> A place to display the confidential sermon criticism responses </mat-tab> -->
+                            <mat-tab label="Comments">
+                                <div class="no-comments" *ngIf="!sermon.comments || sermon.comments.length < 1">
+                                    <span>No comments have been left yet.</span>
+                                </div>
+                                <div class="comment-block" *ngFor="let comment of sermon.comments">
+                                    {{comment.body}}
+                                </div>
+                            </mat-tab>
                         </mat-tab-group>
                     </div>
                     <div class="bottom-controls">
@@ -150,6 +164,19 @@
                                     }"
                                 >
                                 </editor>
+                            </form>
+                        </mat-tab>
+                        <mat-tab label="Comments" *ngIf="sermon.allowComments">
+                            <form class="sermon-form" [formGroup]="commentForm" #commonSermonForm="ngForm">
+                                <p>Comments left on a sermon are only visible to the author of the sermon. Please be courteous in your feedback, even if it may be hard for the author to hear. By God's grace we are allowed to proclaim His Word, and we will often find ourselves weak and needing mercy.</p>
+                                <p>Most importantly though is that iron sharpens iron, and by your feedback it will allow the author of this sermon to grow and be better prepared to preach the Gospel in the future.</p>
+                                <mat-form-field>
+                                    <mat-label>Comment</mat-label>
+                                    <textarea matInput
+                                              cdkTextareaAutosize
+                                              formControlName="body"></textarea>
+                                  </mat-form-field>
+                                  <button class="control-button" id="comment_button" [disabled]="!commentForm.valid" (click)="commentOnSermon()" mat-raised-button color="primary"><fa-icon [icon]="faPaperPlane"></fa-icon></button>
                             </form>
                         </mat-tab>
                     </mat-tab-group>

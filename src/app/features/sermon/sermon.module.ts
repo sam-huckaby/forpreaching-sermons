@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -29,6 +30,7 @@ import { SermonComponent, ConfirmDeleteDialog } from './sermon.component';
     ReactiveFormsModule,
     SermonRoutingModule,
     MatFormFieldModule,
+    MatCheckboxModule,
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
