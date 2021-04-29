@@ -1,5 +1,12 @@
+// Imports
 @import '../../styles/forms.scss';
 @import '../../styles/responsive.scss';
+
+// Generic utilities for this file
+@keyframes fadeOut{
+    from{opacity: 1;}
+    to {opacity: 0};
+}
 
 .padded-page-container {
     @include flex-col;
@@ -203,11 +210,6 @@
         animation-fill-mode: forwards;
     }
 
-    @keyframes fadeOut{
-        from{opacity: 1;}
-        to {opacity: 0};
-    }
-
     .icon {
         &.dirty {
             color: #4499FF;
@@ -218,6 +220,34 @@
         &.error {
             color: darkred;
         }
+    }
+}
+
+.comment-form-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.sent-comment {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    background-color: rgba(150, 150, 150, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    fa-icon {
+        animation:fadeOut 3s;
+        animation-fill-mode: forwards;
+        font-size: 24px;
     }
 }
 
@@ -287,4 +317,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.comment-block {
+    padding: 10px;
+    border-bottom: 1px solid #CCC;
+    display: flex;
+    flex-direction: column;
+
+    .comment-date {
+        color: #666666;
+        font-style: italic;
+    }
 }

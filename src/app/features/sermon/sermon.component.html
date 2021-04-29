@@ -118,7 +118,12 @@
                                     <span>No comments have been left yet.</span>
                                 </div>
                                 <div class="comment-block" *ngFor="let comment of sermon.comments">
-                                    {{comment.body}}
+                                    <div class="comment-date">
+                                        {{comment.date | date:'longDate'}}
+                                    </div>
+                                    <div class="comment-body">
+                                        {{comment.body}}
+                                    </div>
                                 </div>
                             </mat-tab>
                         </mat-tab-group>
@@ -167,16 +172,19 @@
                             </form>
                         </mat-tab>
                         <mat-tab label="Comments" *ngIf="sermon.allowComments">
-                            <form class="sermon-form" [formGroup]="commentForm" #commonSermonForm="ngForm">
+                            <form class="sermon-form" [formGroup]="commentForm" #commonSermonForm="ngForm" (ngSubmit)="commentOnSermon()">
                                 <p>Comments left on a sermon are only visible to the author of the sermon. Please be courteous in your feedback, even if it may be hard for the author to hear. By God's grace we are allowed to proclaim His Word, and we will often find ourselves weak and needing mercy.</p>
                                 <p>Most importantly though is that iron sharpens iron, and by your feedback it will allow the author of this sermon to grow and be better prepared to preach the Gospel in the future.</p>
-                                <mat-form-field>
-                                    <mat-label>Comment</mat-label>
-                                    <textarea matInput
-                                              cdkTextareaAutosize
-                                              formControlName="body"></textarea>
-                                  </mat-form-field>
-                                  <button class="control-button" id="comment_button" [disabled]="!commentForm.valid" (click)="commentOnSermon()" mat-raised-button color="primary"><fa-icon [icon]="faPaperPlane"></fa-icon></button>
+                                <div class="comment-form-container">
+                                    <div class="sent-comment" *ngIf="commentSubmitted">Comment Sent!&nbsp;&nbsp;<fa-icon [icon]="faPaperPlane"></fa-icon></div>
+                                    <mat-form-field class="comment-form-container">
+                                        <mat-label>Comment</mat-label>
+                                        <textarea matInput
+                                                cdkTextareaAutosize
+                                                formControlName="body"></textarea>
+                                    </mat-form-field>
+                                    <button class="control-button" id="comment_button" [disabled]="!commentForm.valid" mat-raised-button color="primary" type="submit"><fa-icon [icon]="faPaperPlane"></fa-icon></button>
+                                </div>
                             </form>
                         </mat-tab>
                     </mat-tab-group>

@@ -35,6 +35,8 @@ export class SermonComponent implements OnInit,AfterViewInit {
 
   public activeTabIndex: number | undefined = undefined;
 
+  public commentSubmitted: Boolean = false
+
   faTrash = faTrash;
   faSync = faSync;
   faCheck = faCheck;
@@ -207,11 +209,17 @@ export class SermonComponent implements OnInit,AfterViewInit {
   }
 
   commentOnSermon(): void {
-    console.log('COMMENT');
-    // TODO:
-    // build request populated with commentForm's values
+    
+    this.commentSubmitted = true;
+
+    // build request populated with commentForm's values and send it to the API
     this.http.post('/api/sermons/'+this.sermonId+'/comments', this.commentForm.value, {responseType: 'json'}).subscribe((success) => {
-      console.log('We did it!');
+      setTimeout(() => {
+        this.commentForm.reset();
+        // I hesitate to use the next line, because it breaks all errors going forward and prevents validation
+        // this.commentForm.controls['body'].setErrors(null);
+        this.commentSubmitted = false;
+      }, 3000)
     });
   }
 
