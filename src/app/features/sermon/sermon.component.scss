@@ -126,6 +126,10 @@
     }
 }
 
+#allow_comments_field {
+    padding-bottom: 16px;
+}
+
 .sm-breakdown {
     @include flex-col;
 
@@ -329,4 +333,12 @@
         color: #666666;
         font-style: italic;
     }
+}
+
+// Management View
+.management-view {
+    background-color: rgba(234, 83, 35, 0.4);
+    border: 1px solid #AAAAAA;
+    padding: 10px 5px;
+    margin-bottom: 5px;
 }

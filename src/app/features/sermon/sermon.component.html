@@ -17,6 +17,13 @@
                                         <span *ngIf="!failStatus"><fa-icon [icon]="faSync" class="icon dirty"></fa-icon> Saving...</span>
                                     </span>
                                 </span>
+                                <div class="management-view" *ngIf="sermon.canManage">
+                                    <!-- I need to figure out a more global way to recognize a management user -->
+                                    <h3>Manage Sermon</h3>
+                                    <!-- TODO: Disable this button if the sermon has already been featured previously -->
+                                    <button class="control-button" id="feature_button" (click)="featureThis()" *ngIf="!sermon.featured" mat-raised-button>Feature This</button>
+                                    <span class="featured-label" id="featured_label" *ngIf="sermon.featured">This sermon is being featured.</span>
+                                </div>
                                 <div class="sm-breakdown">
                                     <div id="title_field" class="form-field">
                                         <mat-form-field appearance="outline" class="flex-full">
@@ -139,6 +146,13 @@
                 <div class="visitor-view">
                     <mat-tab-group class="sermon_tab_group" #sermonTabGroup (selectedTabChange)="handleTabChange($event)">
                         <mat-tab label="Details">
+                            <div class="management-view" *ngIf="sermon.canManage">
+                                <!-- I need to figure out a more global way to recognize a management user -->
+                                <h3>Manage Sermon</h3>
+                                <!-- TODO: Disable this button if the sermon has already been featured previously -->
+                                <button class="control-button" id="feature_button" (click)="featureThis()" *ngIf="!sermon.featured" mat-raised-button>Feature This</button>
+                                <span class="featured-label" id="featured_label" *ngIf="sermon.featured">This sermon is being featured.</span>
+                            </div>
                             <div class="responsive-breakdown space-between pad-bottom" id="top_metadata">
                                 <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
                                 <span class="field-label">Last Updated: {{sermon.updatedAt | date:'longDate'}}</span>
