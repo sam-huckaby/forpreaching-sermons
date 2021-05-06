@@ -125,7 +125,7 @@
                                     </editor>
                                 </div>
                             </mat-tab>
-                            <mat-tab label="Comments">
+                            <mat-tab label="Comments ({{sermon.comments.length}})">
                                 <div class="no-comments" *ngIf="!sermon.comments || sermon.comments.length < 1">
                                     <span>No comments have been left yet.</span>
                                 </div>
