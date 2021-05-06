@@ -67,12 +67,17 @@
                                             formControlName="video">
                                     </mat-form-field>
                                 </div>
-                                <div id="allow_comments_field" class="form-field">
+                                <div id="allow_comments_field" class="double-form-field">
                                     <mat-checkbox
-                                            matInput
-                                            class="responsive-width"
-                                            id="allowComments_sermon_input"
-                                            formControlName="allowComments">Allow Comments</mat-checkbox>
+                                        matInput
+                                        class="row-items"
+                                        id="public_sermon_input"
+                                        formControlName="public">Public</mat-checkbox>
+                                    <mat-checkbox
+                                        matInput
+                                        class="row-items"
+                                        id="allowComments_sermon_input"
+                                        formControlName="allowComments">Allow Comments</mat-checkbox>
                                 </div>
                                 <div id="resource_field" class="form-field">
                                     <mat-form-field appearance="outline" class="flex-full">

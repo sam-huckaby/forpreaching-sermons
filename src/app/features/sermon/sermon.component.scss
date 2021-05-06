@@ -164,6 +164,14 @@
     @include flex-col;
 }
 
+.double-form-field {
+    @include flex-row;
+}
+
+.row-items {
+    margin: 0 10px;
+}
+
 .flex-full {
     @include flex-full;
 }

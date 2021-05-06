@@ -5,8 +5,8 @@
     <div id="snippet-container">
         <div class="sermon-snippet" *ngFor="let sermon of lastTenSermons">
             <div class="created-date children-center">
-                <div class="month-abbr">{{sermon.createdAt | date:'MMM'}}</div>
-                <div class="day-number">{{sermon.createdAt | date:'dd'}}</div>
+                <div class="month-abbr">{{sermon.featured | date:'MMM'}}</div>
+                <div class="day-number">{{sermon.featured | date:'dd'}}</div>
             </div>
             <div class="text-preview">
                 <div class="title-pane">{{sermon.title}}</div>

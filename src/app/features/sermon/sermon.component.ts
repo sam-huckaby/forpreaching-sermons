@@ -80,6 +80,7 @@ export class SermonComponent implements OnInit,AfterViewInit {
       summary: [''],
       video: [''],
       allowComments: [false],
+      public: [false],
       body: ['', Validators.required]
     });
 
