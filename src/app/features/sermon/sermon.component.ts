@@ -81,6 +81,7 @@ export class SermonComponent implements OnInit,AfterViewInit {
       video: [''],
       allowComments: [false],
       public: [false],
+      featured: [new Date()],
       body: ['', Validators.required]
     });
 
@@ -193,31 +194,6 @@ export class SermonComponent implements OnInit,AfterViewInit {
     this.sermonForm.reset(this.sermon$.getValue());
   }
 
-  // saveChanges(silent: boolean = false): void {
-  //   if(!silent) {
-  //     // Display loading veil
-  //     this.isLoading$.next(true);
-  //   }
-    
-  //   // Send the request to save the form's data
-  //   // this.http.put<Sermon>('/api/sermons/'+this.sermonId, this.sermonForm.value, {responseType: 'json'})
-  //   this.doSave(this.sermonId, this.sermonForm.value)
-  //   .subscribe((sermon) => {
-  //     // Once we have the sermon, populate the data management BehaviorSubject
-  //     this.sermon$.next(sermon);
-  //     // Mark the form as pristine again
-  //     this.sermonForm.markAsPristine();
-  //     // Stop displaying the loading veil
-  //     this.isLoading$.next(false);
-  //   }, (caught) => {
-  //     // Stop displaying the loading veil
-  //     this.isLoading$.next(false);
-  //     this._snackBar.open(caught.error.info, "Got it", {
-  //       duration: 5000,
-  //     });
-  //   })
-  // }
-
   commentOnSermon(): void {
     
     this.commentSubmitted = true;
@@ -234,6 +210,13 @@ export class SermonComponent implements OnInit,AfterViewInit {
   }
 
   doSave(sermonId, values) {
+    // Do not save a pristine, untouched form
+    if (this.sermonForm.pristine) {
+      return new Promise((resolve) => {
+        return resolve(true);
+      });
+    }
+
     return this.http.put<Sermon>('/api/sermons/'+sermonId, values, {responseType: 'json', observe: 'response'})
     .pipe(
       map((data: any) => {
@@ -282,12 +265,12 @@ export class SermonComponent implements OnInit,AfterViewInit {
     }
   }
 
-  featureThis() {
+  featureThis(featureVal:boolean) {
     // Display loading veil
     this.isLoading$.next(true);
 
     // Send the request to feature this sermon
-    this.http.post<Sermon>('/api/sermons/'+this.sermonId+'/feature', {}, {responseType: 'json', observe: 'response'})
+    this.http.post<Sermon>('/api/sermons/'+this.sermonId+'/feature', {active: featureVal}, {responseType: 'json', observe: 'response'})
     .pipe(
       map((data: any) => {
         let sermon = {
