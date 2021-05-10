@@ -23,13 +23,15 @@
                                     <!-- TODO: Disable this button if the sermon has already been featured previously -->
                                     <button class="control-button" id="feature_button" (click)="featureThis(true)" *ngIf="!sermon.featured" mat-raised-button>Feature This</button>
                                     <!-- <span class="featured-label" id="featured_label" *ngIf="sermon.featured">This sermon is being featured.</span> -->
-                                    <mat-form-field appearance="fill" *ngIf="sermon.featured">
-                                        <mat-label>Feature Date</mat-label>
-                                        <input matInput [matDatepicker]="picker" formControlName="featured">
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
-                                    <button class="control-button" id="feature_button" (click)="featureThis(false)" *ngIf="sermon.featured" mat-raised-button>X</button>
+                                    <div class="datepicker-button-container">
+                                        <mat-form-field appearance="fill" *ngIf="sermon.featured">
+                                            <mat-label>Feature Date</mat-label>
+                                            <input matInput [matDatepicker]="picker" formControlName="featured">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                        <button class="control-button datepicker-button" id="feature_button" (click)="featureThis(false)" *ngIf="sermon.featured" mat-raised-button>X</button>
+                                    </div>
                                 </div>
                                 <div class="sm-breakdown">
                                     <div id="title_field" class="form-field">
@@ -159,11 +161,20 @@
                     <mat-tab-group class="sermon_tab_group" #sermonTabGroup (selectedTabChange)="handleTabChange($event)">
                         <mat-tab label="Details">
                             <div class="management-view" *ngIf="sermon.canManage">
-                                <!-- I need to figure out a more global way to recognize a management user -->
-                                <h3>Manage Sermon</h3>
-                                <!-- TODO: Disable this button if the sermon has already been featured previously -->
-                                <button class="control-button" id="feature_button" (click)="featureThis()" *ngIf="!sermon.featured" mat-raised-button>Feature This</button>
-                                <span class="featured-label" id="featured_label" *ngIf="sermon.featured">This sermon is being featured.</span>
+                                <form class="sermon-form" [formGroup]="sermonForm" #editSermonForm="ngForm">
+                                    <h3>Manage Sermon</h3>
+                                    <!-- TODO: Disable this button if the sermon has already been featured previously -->
+                                    <button class="control-button" id="feature_button" (click)="featureThis()" *ngIf="!sermon.featured" mat-raised-button>Feature This</button>
+                                    <div class="datepicker-button-container">
+                                        <mat-form-field appearance="fill" *ngIf="sermon.featured">
+                                            <mat-label>Feature Date</mat-label>
+                                            <input matInput [matDatepicker]="picker" formControlName="featured">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                        <button class="control-button datepicker-button" id="feature_button" (click)="featureThis(false)" *ngIf="sermon.featured" mat-raised-button>X</button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="responsive-breakdown space-between pad-bottom" id="top_metadata">
                                 <span class="field-label">Created: {{sermon.createdAt | date:'longDate'}}</span>
